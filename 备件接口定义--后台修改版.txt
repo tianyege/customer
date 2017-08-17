@@ -1,0 +1,243 @@
+﻿ip地址：172.29.80.106:22222  域名：fp.bkjk.cn
+1.备件新增http://ip:8080/sparepart-web/sparepart/add
+request:
+
+spare_part_name
+{
+    "sparePartName": "借款人身份证",
+    "sparePartNumber": "JIE-KUAN-REN-SHEN-FEN-ZHENG",
+    "uploadRequire": "有效期内二代身份证，姓名、地址、证件号码、颁发机构完整、清晰；"
+}
+response:
+{
+ "code":1      //0失败，1成功
+  "msg":""
+  "data":""
+}
+2.备件更新http://ip:8080/sparepart-web/sparepart/update
+request:
+{
+   "id":12345,
+    "uploadRequire": "有效期内二代身份证，姓名、地址、证件号码、颁发机构完整、清晰；"
+}
+response:
+{
+ "code":1      //0失败，1成功
+  "msg":""
+  "data":""
+}
+*****3.备件模糊查询http://ip:8080/sparepart-web/sparepart/fuzzyquary
+request:
+{
+    "sparePartName": "身份证"
+}
+response:
+{
+ "code":1      //0失败，1成功
+  "msg":""
+  "data":[{id:1, sparePartName:'身份证'},...]
+}
+******4.列表查询http://ip:8080/sparepart-web/sparepart/listquary
+request:
+{
+    "sparePartName": "身份证”,
+ 
+   “partStatus”: ‘可用1，禁用0，全部’//加个状态字段，用数字代替,
+    "pageNum":1,
+    "pageSize":10	
+}
+response:
+{
+ "code":1      //0失败，1成功
+  "msg":""
+  "data":
+{
+ "pageNum":1,
+ "totalCount":101,
+"totalPage":11,
+"list":[{
+    "id":1,
+    "sparePartName": "借款人身份证",
+    "sparePartNumber": "JIE-KUAN-REN-SHEN-FEN-ZHENG",
+    "uploadRequire": "有效期内二代身份证，姓名、地址、证件号码、颁发机构完整、清晰；",
+    "partStatus":1
+},{
+     "id":2,
+    "sparePartName": "借款人身份证",
+    "sparePartNumber": "JIE-KUAN-REN-SHEN-FEN-ZHENG",
+    "uploadRequire": "有效期内二代身份证，姓名、地址、证件号码、颁发机构完整、清晰；",
+     "partStatus":1
+}
+]
+}
+5.禁用启用http://ip:8080/sparepart-web/sparepart/partstatus
+request:
+{
+   "id":12345,
+    "partStatus": 0  //启用传1 禁用传0
+}
+response:
+{
+ "code":1      //0失败，1成功
+  "msg":""
+  "data":""
+}
+
+6.模板新增http://ip:8080/sparepart-web/sparepartmodel/add
+request:
+{
+    "sparePartModelName": "身份证模板",
+    "sparePartModelDesc": "XXXXX"
+
+}
+response:
+{
+ "code":1      //0失败，1成功
+  "msg":""
+  "data":""
+}
+7.备件规则http://ip:8080/sparepart-web/sparepartmodel/partrule
+request:
+空
+response:
+{
+ "code":1      //0失败，1成功
+  "msg":""
+  "data":[{
+    "id": 12,
+    "sparePartRule": "XXXXX"
+},{
+    "id": 13,
+    "sparePartRule": "XXXXX"
+}]
+}
+***8.配置证件模板保存（生成的是一条新的记录，不同于备件id）http://ip:8080/sparepart-web/sparepartmodel/save
+request:
+{
+    "sparePartModelId": 923	,
+    "sparePartId": 223,
+    "sparePartRuleId": 1  //此处应该是单个id
+}
+response:
+{
+ "code":1      //0失败，1成功
+  "msg":""
+  "data”:””
+}
+9.备件模板列表http://ip:8080/sparepart-web/sparepartmodel/list
+request:
+{
+     "pageNum":1,      
+    "pageSize":10       
+}
+response:
+{
+ "currentPage":1,
+ "totalCount":101,
+"totalPage":11,
+"list":[
+{
+    "id":1
+    "sparePartModelName": "身份证模板",
+    "sparePartModelDesc": "XXXXX"
+},{
+    "id":2
+    "sparePartModelName": "身份证模板",
+    "sparePartModelDesc": "XXXXX"
+}
+]
+}
+
+10 删除模板http://ip:8080/sparepart-web/sparepartmodel/delete
+request:
+{
+    "id": 923
+}
+response:
+{
+ "code":1      //0失败，1成功
+  "msg":""
+  "data":""
+}
+
+*****11.根据备件模板ID查询配置的备件http://ip:8080/sparepart-web/sparepartmodel/quaryparts
+request:
+{
+    "sparePartModelId": 123456
+}
+response:
+{
+ "code":1      //0失败，1成功
+  "msg":""
+  "data”://此处list应是配置的备件的新记录的list,数据结构里需要新记录的id
+
+[{
+    "id":1,
+    "sparePartModel": "赎楼",
+    "sparePart": "借款人身份证",
+    "sparePartRule": "报单必备件（金融单报单界面必需要展示）"
+},{
+    "id":2,	
+    "sparePartModel": "赎楼",
+    "sparePart": "借款人身份证",
+    "sparePartRule": "报单必备件（金融单报单界面必需要展示）"
+}
+]
+12. 删除模板中的备件记录http://ip:8080/sparepart-web/sparepartmodel/partdelete
+request:
+{
+    "id": 223
+}
+response:
+{
+ "code":1      //0失败，1成功
+  "msg":""
+  "data":""
+}
+13.编辑模板http://ip:8080/sparepart-web/sparepartmodel/edit
+request:
+{
+   "sparePartModelName": "身份证模板",
+    "sparePartModelDesc": "XXXXX",
+     id:123
+}
+response:
+{
+ "code":1      //0失败，1成功
+  "msg":""
+  "data":""
+}
+
+14.查询备件模板类型http://ip:8080/sparepart-web/product/quarymodel
+request：
+{
+
+}
+response：
+{
+"code":1      //0失败，1成功
+  "msg":""
+  "data":[{"id":1,
+        "sparePartName": "XXXXX"
+},{
+         "id":2,
+        "sparePartName": "XXXXX"
+}   
+]
+}
+
+15.查询模板信息http://ip:8080/sparepart-web/product/quarymodeldetail
+request：
+{
+"id":1
+}
+response：
+{
+"code":1      //0失败，1成功
+  "msg":""
+  "data":
+       "id":1,
+	"sparePartName": "XXXXX"
+}
+
+16.删除模板同10和保存备件模板同6
